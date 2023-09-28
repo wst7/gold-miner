@@ -1,4 +1,6 @@
 import { createContainer, pixelRatio, ticker } from '../core'
+import databus from '../databus'
+import { OreType } from '../level_data'
 import collisionDetection from '../utils/collision-detection'
 import Ore from './ore'
 
@@ -34,7 +36,7 @@ export default class Miner extends PIXI.Sprite {
   ropeHook: PIXI.Container
   ores: Ore[] = []
 
-  hitSprite: PIXI.Sprite
+  hitSprite: Ore
   constructor(ores: Ore[]) {
     super();
     this.ores = ores
@@ -43,14 +45,14 @@ export default class Miner extends PIXI.Sprite {
   init() {
     const goldCare = pixiUtil.genSprite('gold_car')
     this.addChild(goldCare)
-    
+
     this.hook = pixiUtil.genSprite('gold_hook')
     this.rope = new PIXI.Graphics();
     this.ropeHook = createContainer()
-    
+
     this.ropeHook.addChild(this.hook)
     this.ropeHook.addChild(this.rope);
-    
+
     this.rope.beginFill(this.ropeColor);
     this.rope.drawRect(0, 0, 4, this.ropeInitHeight);
     this.rope.endFill();
@@ -111,9 +113,9 @@ export default class Miner extends PIXI.Sprite {
                   y: 0,
                   size: ore.size
                 })
+                // TODO: use ore type size re calc hook speed
                 this.ropeHook.addChild(this.hitSprite)
                 ore.visible = false;
-                // this.distinguish(ore, i, rope.height);
                 hasHit = true;
                 break;
               }
@@ -121,10 +123,6 @@ export default class Miner extends PIXI.Sprite {
           }
         } else {
           this.ropeDirection = RopeDirection.Shrink;
-
-          if (!hasHit) {
-            this.distinguish();
-          }
         }
       } else {
         if (this.rope.height >= this.ropeInitHeight) {
@@ -138,20 +136,21 @@ export default class Miner extends PIXI.Sprite {
           this.ropeStop = true;
           this.hookStop = false;
           this.ropeDirection = RopeDirection.Grow;
+          this.calcScore()
           this.ropeHook.removeChild(this.hitSprite);
         }
-
       }
     })
 
   }
   //  judge ore type
-  distinguish() {
-
+  calcScore() {
+    if (this.hitSprite) {
+      databus.calcScore(this.hitSprite.score)
+    }
   }
 
   mining() {
-
     if (this.ropeStop) {
       console.log("miner start mining")
       this.hookStop = true

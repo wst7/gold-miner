@@ -15,58 +15,58 @@ export enum OreSize {
 }
 
 const levels = {
-  // 1: {
-  //   target: 650,
-  //   ores: [
-  //     {
-  //       type: OreType.Gold,
-  //       x: 200,
-  //       y: 900,
-  //       size: OreSize.S60
-  //     },
-  //     {
-  //       type: OreType.Stone,
-  //       x: 100,
-  //       y: 1000,
-  //       size: OreSize.S60
-  //     },
-  //     {
-  //       type: OreType.Wallet,
-  //       x: 400,
-  //       y: 700,
-  //       size: OreSize.S40
-  //     },
-  //     {
-  //       type: OreType.Boom,
-  //       x: 500,
-  //       y: 900,
-  //       size: OreSize.S80
-  //     },
-  //   ]
-  // },
-  // 2: {
-  //   target: 1150,
-  //   ores: [
-  //     {
-  //       type: OreType.Gold,
-  //       x: 200,
-  //       y: 900,
-  //       size: OreSize.S80
-  //     },
-  //     {
-  //       type: OreType.Stone,
-  //       x: 100,
-  //       y: 1000,
-  //       size: OreSize.S20
-  //     },
-  //     {
-  //       type: OreType.Wallet,
-  //       x: 200,
-  //       y: 300,
-  //       size: OreSize.S40
-  //     },
-  //   ]
-  // }
+  1: {
+    target: 650,
+    ores: [
+      {
+        type: OreType.Gold,
+        x: 200,
+        y: 900,
+        size: OreSize.S60
+      },
+      {
+        type: OreType.Stone,
+        x: 100,
+        y: 1000,
+        size: OreSize.S60
+      },
+      {
+        type: OreType.Wallet,
+        x: 400,
+        y: 700,
+        size: OreSize.S40
+      },
+      {
+        type: OreType.Boom,
+        x: 500,
+        y: 900,
+        size: OreSize.S80
+      },
+    ]
+  },
+  2: {
+    target: 1150,
+    ores: [
+      {
+        type: OreType.Gold,
+        x: 200,
+        y: 900,
+        size: OreSize.S80
+      },
+      {
+        type: OreType.Stone,
+        x: 100,
+        y: 1000,
+        size: OreSize.S20
+      },
+      {
+        type: OreType.Wallet,
+        x: 200,
+        y: 300,
+        size: OreSize.S40
+      },
+    ]
+  }
 }
 
 export function getTarget(levelIdx: number) {

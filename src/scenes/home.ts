@@ -1,6 +1,6 @@
 
 import * as PIXI from 'pixi.js'
-import { createContainer, screen, stage, devicePixelRatio } from '../core'
+import { createContainer, screen, stage, devicePixelRatio, ticker } from '../core'
 import Scorer from '../components/scorer'
 import Field from '../components/field'
 import databus from '../databus'
@@ -45,7 +45,6 @@ export default {
     });
 
     // miner
-    // this.miner = pixiUtil.genSprite('miner');
     this.miner = new Miner(this.ores);
     this.miner.x = width / 2 - this.miner.width / 2;
     this.miner.y = 320;
@@ -57,6 +56,10 @@ export default {
       score: databus.score,
     })
     this.scorer.y = 80
+    ticker.add(() => {
+      this.scorer.setScore(databus.score)
+      this.scorer.setTarget(getTarget(databus.level))
+    })
     this.container.addChild(this.scorer)
 
     // pause btn

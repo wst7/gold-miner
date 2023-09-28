@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js'
 import Field from './field'
+import { ticker } from '../core'
 
 
 
@@ -21,10 +22,7 @@ export default class Scorer extends PIXI.Container {
     this.init()
   }
   init() {
-    const style = new PIXI.TextStyle({
-      fontSize: this.fontSize,
-      fill: this.fontColor
-    });
+
     this.scoreText = new Field({
       label: '金钱: ',
       value: this.score,

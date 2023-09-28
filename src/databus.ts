@@ -2,21 +2,23 @@
  * 全局状态管理器
  */
 class DataBus {
-    level: number = 1
-    score: number = 0
-    userInfo: any = {}
+  level: number = 1
+  score: number = 0
+  userInfo: any = {}
 
+  constructor() {
+    this.userInfo = {};
+    this.reset();
+  }
 
-    constructor() {
-        this.userInfo = {};
+  reset() {
+    this.level = 1
+    this.score = 0
+  }
 
-        this.reset();
-    }
-
-    reset() {
-        this.level = 1
-    }
-
+  calcScore(score: number) {
+    this.score += score
+  }
 
 }
 

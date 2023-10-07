@@ -19,7 +19,6 @@ const {
 export default {
   name: "home",
   init() {
-    databus.reset()
     this.container = createContainer()
 
     // 背景
@@ -137,7 +136,7 @@ export default {
   },
   hide() {
     this.container.destroy({ children: true });
-    monitor.emit("scene:hide", "this.name");
+    monitor.emit("scene:hide", this.name);
   },
 
   start() {

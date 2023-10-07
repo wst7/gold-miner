@@ -6,6 +6,7 @@ class DataBus {
   score: number = 0
   time: number = 60
   userInfo: any = {}
+  priceHalve: boolean = false
 
   constructor() {
     this.userInfo = {};

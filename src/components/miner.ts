@@ -24,7 +24,7 @@ export default class Miner extends PIXI.Sprite {
   ropeStop = true // 绳子伸缩动画的开关
   ropeDirection = RopeDirection.Grow
   ropeInitSpeed = 2
-  ropeCurrentSpeed = 0
+  ropeCurrentSpeed = 4
   ropeAcceleratedSpeed = 0.2
   ropeMaxLength = 888
   ropeInitHeight = 50
@@ -37,6 +37,9 @@ export default class Miner extends PIXI.Sprite {
   ores: Ore[] = []
 
   hitSprite: Ore
+
+  _beforeRopeStop: boolean
+  _beforeHookStop: boolean
   constructor(ores: Ore[]) {
     super();
     this.ores = ores
@@ -47,6 +50,8 @@ export default class Miner extends PIXI.Sprite {
     this.addChild(goldCare)
 
     this.hook = pixiUtil.genSprite('gold_hook')
+    this.hook.anchor.set(0.5)
+    this.hook.rotation = Math.PI / 2
     this.rope = new PIXI.Graphics();
     this.ropeHook = createContainer()
 
@@ -66,7 +71,7 @@ export default class Miner extends PIXI.Sprite {
     goldCare.position.set(-28, - 148)
 
 
-    this.hookRotationAnimate()
+    // this.hookRotationAnimate()
     this.ropeGrowAnimate()
 
   }
@@ -97,7 +102,7 @@ export default class Miner extends PIXI.Sprite {
       if (this.ropeDirection == RopeDirection.Grow) {
         let hasHit = false;
         if (this.rope.height <= this.ropeMaxLength) {
-          this.ropeCurrentSpeed += this.ropeAcceleratedSpeed;
+          // this.ropeCurrentSpeed += this.ropeAcceleratedSpeed;
           this.rope.height += this.ropeCurrentSpeed;
           this.hook.y += this.ropeCurrentSpeed;
 
@@ -113,6 +118,7 @@ export default class Miner extends PIXI.Sprite {
                   y: 0,
                   size: ore.size
                 })
+                this.hitSprite.anchor.set(0.5, 0.5)
                 // TODO: use ore type size re calc hook speed
                 this.ropeHook.addChild(this.hitSprite)
                 ore.visible = false;
@@ -126,8 +132,8 @@ export default class Miner extends PIXI.Sprite {
         }
       } else {
         if (this.rope.height >= this.ropeInitHeight) {
-          this.rope.height -= this.ropeCurrentSpeed;
-          this.hook.y -= this.ropeCurrentSpeed;
+          // this.rope.height -= this.ropeCurrentSpeed;
+          // this.hook.y -= this.ropeCurrentSpeed;
           if (this.hitSprite) {
             this.hitSprite.position.y = 130 + this.rope.height;
           }
@@ -138,6 +144,7 @@ export default class Miner extends PIXI.Sprite {
           this.ropeDirection = RopeDirection.Grow;
           this.calcScore()
           this.ropeHook.removeChild(this.hitSprite);
+          this.hitSprite = undefined
         }
       }
     })
@@ -158,6 +165,15 @@ export default class Miner extends PIXI.Sprite {
     } else {
       console.log("miner is mining")
     }
-
+  }
+  pause() {
+    this._beforeRopeStop = this.ropeStop;
+    this._beforeHookStop = this.hookStop ;
+    this.ropeStop = true;
+    this.hookStop = true;
+  }
+  continue() {
+    this.ropeStop = this._beforeRopeStop;
+    this.hookStop = this._beforeHookStop;
   }
 }

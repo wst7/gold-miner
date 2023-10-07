@@ -1,22 +1,24 @@
 
-import * as PIXI from 'pixi.js'
 import { createContainer, screen, stage, devicePixelRatio, ticker } from '../core'
 import Scorer from '../components/scorer'
 import Field from '../components/field'
 import databus from '../databus'
 import { getOres, getTarget } from '../level_data'
 import Ore from '../components/ore'
-import Timeout from '../components/timeout'
 import Miner from '../components/miner'
+import Button from '../components/button'
+import Pause from '../components/pause'
 
 const {
   width,
   height
 } = screen
 
+// TODO: 倒计时，到结算界面
 export default {
 
   init() {
+    databus.reset()
     this.container = createContainer()
 
     // 背景
@@ -30,11 +32,25 @@ export default {
     this.lawnBg.width = width;
     this.lawnBg.height = height;
     this.lawnBg.interactive = true
-    this.lawnBg.on("pointerdown", () => {
-      this.miner.mining();
-      console.log(this.miner)
+    this.lawnBg.hitArea = new PIXI.Rectangle(0, 180, width, height);
+    this.lawnBg.on("pointerdown", (e) => {
+      console.log("lawnBg")
+      if (!this.pause.visible) {
+        this.miner.mining();
+      }
     })
     this.container.addChild(this.lawnBg);
+
+    const pauseBtn = new Button("暂停");
+    pauseBtn.x = 20
+    pauseBtn.y = 20
+    pauseBtn.on('pointerdown', () => {
+      clearTimeout(this.timer);
+      this.miner.pause();
+      this.pause.show()
+      
+    });
+    this.container.addChild(pauseBtn);
 
     // create ores
     const ores = getOres(databus.level)
@@ -55,32 +71,23 @@ export default {
       target: getTarget(databus.level),
       score: databus.score,
     })
-    this.scorer.y = 80
+    this.scorer.y = 100
     ticker.add(() => {
       this.scorer.setScore(databus.score)
       this.scorer.setTarget(getTarget(databus.level))
     })
     this.container.addChild(this.scorer)
 
-    // pause btn
-    // this.pauseBtn = pixiUtil.genSprite('mask-bk')
-    // this.pauseBtn.width = 100
-    // this.pauseBtn.height = 50
-    // this.pauseBtn.x = 10
-    // this.pauseBtn.y = 10
-    // this.pauseBtn.interactive = true
-    // this.pauseBtn.on('pointertap', () => {
-    //   this.pause() // TODO: 
-    // })
-    // this.container.addChild(this.pauseBtn)
-
     // timeout
     this.timeout = new Field({
       label: '倒计时: ',
-      value: 60,
+      value: databus.time,
+    })
+    ticker.add(() => {
+      this.timeout.setValue(databus.time)
     })
     this.timeout.x = width - this.timeout.width - 60
-    this.timeout.y = 80
+    this.timeout.y = 110
     this.container.addChild(this.timeout)
 
     // level
@@ -92,7 +99,19 @@ export default {
     this.level.y = this.timeout.y + this.timeout.height + 10
     this.container.addChild(this.level)
 
-    
+
+    this.pause = new Pause({
+      doneAction: () => {
+        console.log("doneAction")
+        this.start()
+      },
+      continueAction: () => {
+        console.log("continueAction")
+        this.continue()
+      }
+    })
+    this.container.addChild(this.pause)
+    this.timing()
   },
 
   initWX() {
@@ -105,47 +124,10 @@ export default {
         query: encodeURI(`shareUrl=${this.shareUrl || 'easy/0.jpg'}`)
       }
     })
-
-    wx.onShow((res = {
-      query: undefined,
-      referrerInfo: undefined,
-      scene: 0
-    }) => {
-      if (!res.query?.shareUrl) {
-        return
-      }
-
-      if (res.scene === 1007 || res.scene === 1008) {
-        if (this.puzzle) {
-          this.destroyPuzzle()
-        }
-        const btnType = Number(res.query.gameType)
-        this.newPuzzle(btnType, res.query.puzzleUrl)
-      }
-    })
-
     const res = wx.getLaunchOptionsSync()
-
     if (res.query.puzzleUrl && res.query.gameType) {
-      const btnType = Number(res.query.gameType)
-      this.newPuzzle(btnType, res.query.puzzleUrl)
+      //
     }
-  }, 
-
-  destroyPuzzle() {
-    this.container.removeChild(this.puzzle)
-    this.container.removeChild(this.info)
-    this.container.removeChild(this.hint)
-    this.puzzle.destroy()
-    this.info.destroy()
-    this.hint.destroy()
-  },
-
-  isTimeGoing() {
-    if (this.puzzle.gameOn && !this.puzzleHelp.visible) {
-      return true
-    }
-    return false
   },
 
 
@@ -153,5 +135,25 @@ export default {
     this.init()
     this.initWX()
     stage.addChild(this.container)
+  },
+
+
+  continue() {
+    this.pause.hide()
+    this.timing()
+    this.miner.continue()
+  },
+  timing() {
+    if (databus.time === 0) {
+      // 关卡结束
+    }
+    if (this._pause) {
+      clearTimeout(this.timer)
+      return
+    }
+    databus.time -= 1
+    this.timer = setTimeout(() => {
+      this.timing()
+    }, 1000)
   }
 }

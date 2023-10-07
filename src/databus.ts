@@ -4,6 +4,7 @@
 class DataBus {
   level: number = 1
   score: number = 0
+  time: number = 60
   userInfo: any = {}
 
   constructor() {

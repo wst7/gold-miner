@@ -1,5 +1,4 @@
 import { stage, screen, monitor, loader, createContainer } from '../core';
-import databus from '../game/databus'
 import config from '../config';
 
 const {

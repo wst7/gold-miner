@@ -1,5 +1,5 @@
 
-import { createContainer } from '../../../core'
+import { createContainer } from '../../core'
 import MenuItem from './menu-item'
 
 

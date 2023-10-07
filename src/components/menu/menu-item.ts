@@ -1,6 +1,6 @@
 
 import createCanvasSprite from '../canvas-sprite'
-import { monitor } from '../../../core'
+import { monitor } from '../../core'
 
 export default class MenuItem extends PIXI.Container {
   menu: IMenu

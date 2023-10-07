@@ -16,7 +16,6 @@ const {
 
 // TODO: 倒计时，到结算界面
 export default {
-
   init() {
     databus.reset()
     this.container = createContainer()

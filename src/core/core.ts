@@ -46,7 +46,7 @@ export const screen = renderer.screen
 
 export function tick() {
   return new Promise(resolve => {
-    renderer.once('postrender', resolve)
+    renderer.once("postrender", resolve)
   })
 }
 

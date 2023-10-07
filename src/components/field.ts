@@ -1,9 +1,9 @@
-import * as PIXI from 'pixi.js'
+import * as PIXI from "pixi.js"
 
 class Field extends PIXI.Container {
   fontSize = 30
-  fontColor = 'white'
-  label: string = ''
+  fontColor = "white"
+  label: string = ""
   value: string | number = 60
   labelText: PIXI.Text
   valueText: PIXI.Text

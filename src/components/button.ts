@@ -6,10 +6,10 @@ export default class Button extends PIXI.Sprite {
     bgColor = bgColor || 0xdcaf44;
     this.interactive = true
     const _text = new PIXI.Text(text, {
-      fontFamily: 'Arial',
+      fontFamily: "Arial",
       fontSize: 34,
       fill: 0xffffff,
-      align: 'center',
+      align: "center",
 
     })
     const button = new PIXI.Graphics();

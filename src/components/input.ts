@@ -11,7 +11,7 @@ export default class Input extends PIXI.Container {
     x: 0,
     y: 0
   }
-  value = ''
+  value = ""
 
   constructor(options) {
     super()
@@ -50,7 +50,7 @@ export default class Input extends PIXI.Container {
     ctx.beginPath()
     // 因为边缘描边存在锯齿，最好指定使用 transparent 填充
     // 这里是使用 fill 还是 stroke都可以，二选一即可
-    ctx.strokeStyle = '#000000'
+    ctx.strokeStyle = "#000000"
     // ctx.fillStyle = '#000000'
     // 左上角
     ctx.arc(x + r, y + r, r, Math.PI, Math.PI * 1.5)
@@ -91,27 +91,27 @@ export default class Input extends PIXI.Container {
     ctx.clip()
   }
   createInput() {
-    const canvas = document.createElement('canvas')
+    const canvas = document.createElement("canvas")
     const { width, height, padding, sendWidth } = this.#options
     canvas.height = height
     canvas.width = width
-    const ctx = canvas.getContext('2d')
-    ctx.fillStyle = '#cccccc'
+    const ctx = canvas.getContext("2d")
+    ctx.fillStyle = "#cccccc"
     ctx.fillRect(0, 0, width, height)
-    ctx.strokeStyle = '#000000'
+    ctx.strokeStyle = "#000000"
     // ctx.beginPath();
     this.roundRect(ctx, padding, padding, width - padding * 2 - sendWidth, height - padding * 2, 10)
     // ctx.stroke();
     const inputSprite = PIXI.Sprite.from(canvas)
     inputSprite.interactive = true
-    inputSprite.on('pointerdown', () => {
+    inputSprite.on("pointerdown", () => {
       
       wx.showKeyboard({
         confirmHold: true,
         defaultValue: this.value,
         maxLength: 500,
         multiple: true,
-        confirmType: 'send'
+        confirmType: "send"
       })
       wx.onKeyboardInput((e) => {
         this.value = e.value

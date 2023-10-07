@@ -10,8 +10,8 @@ const isProd = process.env.NODE_ENV === "production";
 module.exports = {
   entry: {
     game: [path.resolve(__dirname, "src/app.ts")],
-    'context/index': [
-      path.resolve(__dirname, 'src/context/index')
+    "context/index": [
+      path.resolve(__dirname, "src/context/index")
     ]
   },
 

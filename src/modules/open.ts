@@ -13,7 +13,7 @@ class WxOpen {
   }
 
   showEnd(score) {
-    this.postMessage('showEndScore', +score);
+    this.postMessage("showEndScore", +score);
   }
 }
 

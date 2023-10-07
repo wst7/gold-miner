@@ -10,14 +10,14 @@ class AudioManager {
 
     this.bgmList = new Map();
     this.playingBgm = {
-      lastKey: '',
-      key: '',
+      lastKey: "",
+      key: "",
       ctx: null
     };
 
     this.muted = {
-      bgm: localStorage.getItem('muted:bgm'),
-      sound: localStorage.getItem('muted:sound')
+      bgm: localStorage.getItem("muted:bgm"),
+      sound: localStorage.getItem("muted:sound")
     };
   }
 
@@ -80,11 +80,11 @@ class AudioManager {
 
   muteBgm(muted) {
     this.muted.bgm = muted;
-    localStorage.setItem('muted:bgm', muted);
+    localStorage.setItem("muted:bgm", muted);
     if (muted) {
       if (this.playingBgm.ctx !== null) {
         this.playingBgm.lastKey = this.playingBgm.key;
-        this.playingBgm.key = '';
+        this.playingBgm.key = "";
         this.playingBgm.ctx.destroy();
         this.playingBgm.ctx = null;
       }
@@ -92,7 +92,7 @@ class AudioManager {
       if (this.playingBgm.lastKey) {
         this.playBgm(this.playingBgm.lastKey);
       } else {
-        console.log('还未播放过背景音乐');
+        console.log("还未播放过背景音乐");
       }
     }
   }
@@ -110,7 +110,7 @@ class AudioManager {
     if (!audio) {
       const src = this.audioList.get(key);
       if (!src) {
-        console.log('不存在音效', key);
+        console.log("不存在音效", key);
         return;
       }
       audio = {};
@@ -118,7 +118,7 @@ class AudioManager {
       audio.ctx.src = src;
     }
     if (!audio) {
-      console.log('不存在音效', key);
+      console.log("不存在音效", key);
       return;
     }
     if (this.muted.sound) {
@@ -151,7 +151,7 @@ class AudioManager {
 
   mute(muted) {
     this.muted.sound = muted;
-    localStorage.setItem('muted:sound', muted);
+    localStorage.setItem("muted:sound", muted);
     if (muted) {
       for (let [key, value] of this.playingList) {
         value.ctx.stop();

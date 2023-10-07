@@ -4,11 +4,11 @@ let reject = null;
 
 function create() {
   ad = wx.createRewardedVideoAd({
-    adUnitId: ''
+    adUnitId: ""
   });
 
   ad.onError(err => {
-    wx.showToast({ title: err.errMsg, icon: 'none' });
+    wx.showToast({ title: err.errMsg, icon: "none" });
   });
 
   ad.onClose(({ isEnded }) => {

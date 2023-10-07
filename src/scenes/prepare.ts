@@ -3,16 +3,16 @@
 export default async () => {
   await new Promise(async (resolve) => {
     new PIXI.Spritesheet(
-      await loadBaseTexture('static/textures/misc-0.png'),
-      require('../static/textures/misc-0.json')
+      await loadBaseTexture("static/textures/misc-0.png"),
+      require("../static/textures/misc-0.json")
     ).parse(resolve)
   })
-  PIXI.BaseTexture.addToCache(await loadBaseTexture('static/textures/border.png'), 'border.png')
+  PIXI.BaseTexture.addToCache(await loadBaseTexture("static/textures/border.png"), "border.png")
 
   await new Promise(async resolve => {
     new PIXI.Spritesheet(
-      await loadBaseTexture('static/textures/misc-2.png'),
-      require('../static/textures/misc-2.json')
+      await loadBaseTexture("static/textures/misc-2.png"),
+      require("../static/textures/misc-2.json")
     ).parse(resolve)
   })
   for (let i = 0; i < 5; i++) {

@@ -1,9 +1,9 @@
 export enum OreType {
-  Stone = 'stone',
-  Gold = 'gold',
-  Wallet = 'wallet',
-  Diamond = 'diamond',
-  Boom = 'boom'
+  Stone = "stone",
+  Gold = "gold",
+  Wallet = "wallet",
+  Diamond = "diamond",
+  Boom = "boom"
 }
 
 export enum OreSize {

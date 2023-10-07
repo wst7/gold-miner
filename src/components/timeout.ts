@@ -1,8 +1,8 @@
-import * as PIXI from 'pixi.js'
+import * as PIXI from "pixi.js"
 
 class Timeout extends PIXI.Container {
   fontSize = 20
-  fontColor = 'white'
+  fontColor = "white"
   restTime: 60// 剩余时间
   timer_string: PIXI.Text
   constructor() {

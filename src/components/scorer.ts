@@ -1,6 +1,6 @@
-import * as PIXI from 'pixi.js'
-import Field from './field'
-import { ticker } from '../core'
+import * as PIXI from "pixi.js"
+import Field from "./field"
+import { ticker } from "../core"
 
 
 
@@ -8,7 +8,7 @@ export default class Scorer extends PIXI.Container {
   target: number
   score: number
   fontSize = 20
-  fontColor = 'white'
+  fontColor = "white"
   scoreText: Field
   targetText: Field
 
@@ -24,14 +24,14 @@ export default class Scorer extends PIXI.Container {
   init() {
 
     this.scoreText = new Field({
-      label: '金钱: ',
+      label: "金钱: ",
       value: this.score,
     })
     this.scoreText.x = 10
     this.scoreText.y = 10
 
     this.targetText = new Field({
-      label: '目标: ',
+      label: "目标: ",
       value: this.target,
     })
     this.targetText.x = this.scoreText.x

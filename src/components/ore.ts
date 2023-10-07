@@ -1,11 +1,11 @@
 import { OreSize, OreType } from "../level_data"
 
 const Textures = {
-  [OreType.Stone]: 'stone',
-  [OreType.Gold]: 'gold',
-  [OreType.Wallet]: 'wallet',
-  [OreType.Diamond]: 'diamond',
-  [OreType.Boom]: 'boom'
+  [OreType.Stone]: "stone",
+  [OreType.Gold]: "gold",
+  [OreType.Wallet]: "wallet",
+  [OreType.Diamond]: "diamond",
+  [OreType.Boom]: "boom"
 }
 const UnitScore = {
   [OreType.Stone]: 10,

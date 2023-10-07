@@ -1,33 +1,35 @@
 
-import { createContainer, screen, stage, devicePixelRatio, ticker } from '../core'
-import Scorer from '../components/scorer'
-import Field from '../components/field'
-import databus from '../databus'
-import { getOres, getTarget } from '../level_data'
-import Ore from '../components/ore'
-import Miner from '../components/miner'
-import Button from '../components/button'
-import Pause from '../components/pause'
+import { createContainer, screen, stage, devicePixelRatio, ticker, monitor } from "../core"
+import Scorer from "../components/scorer"
+import Field from "../components/field"
+import databus from "../databus"
+import { getOres, getTarget } from "../level_data"
+import Ore from "../components/ore"
+import Miner from "../components/miner"
+import Button from "../components/button"
+import Pause from "../components/pause"
+import Scene from "../components/scene"
 
 const {
   width,
   height
 } = screen
 
-// TODO: 倒计时，到结算界面
+
 export default {
+  name: "home",
   init() {
     databus.reset()
     this.container = createContainer()
 
     // 背景
-    this.bg = pixiUtil.genSprite('bg-desert');
+    this.bg = pixiUtil.genSprite("bg-desert");
     this.bg.width = width;
     this.bg.height = height;
     this.container.addChild(this.bg);
 
     // 草坪
-    this.lawnBg = pixiUtil.genSprite('bg-lawn');
+    this.lawnBg = pixiUtil.genSprite("bg-lawn");
     this.lawnBg.width = width;
     this.lawnBg.height = height;
     this.lawnBg.interactive = true
@@ -43,11 +45,11 @@ export default {
     const pauseBtn = new Button("暂停");
     pauseBtn.x = 20
     pauseBtn.y = 20
-    pauseBtn.on('pointerdown', () => {
+    pauseBtn.on("pointerdown", () => {
       clearTimeout(this.timer);
       this.miner.pause();
       this.pause.show()
-      
+
     });
     this.container.addChild(pauseBtn);
 
@@ -79,7 +81,7 @@ export default {
 
     // timeout
     this.timeout = new Field({
-      label: '倒计时: ',
+      label: "倒计时: ",
       value: databus.time,
     })
     ticker.add(() => {
@@ -91,7 +93,7 @@ export default {
 
     // level
     this.level = new Field({
-      label: '关卡: ',
+      label: "关卡: ",
       value: databus.level,
     })
     this.level.x = width - this.level.width - 60
@@ -118,9 +120,9 @@ export default {
     wx.onShareAppMessage(() => {
       // 用户点击了“转发”按钮
       return {
-        title: '99%的人拼不出来！你敢试试吗？',
-        imageUrl: `static/puzzle/${this.shareUrl || 'easy/0.jpg'}`,
-        query: encodeURI(`shareUrl=${this.shareUrl || 'easy/0.jpg'}`)
+        title: "99%的人拼不出来！你敢试试吗？",
+        imageUrl: `static/puzzle/${this.shareUrl || "easy/0.jpg"}`,
+        query: encodeURI(`shareUrl=${this.shareUrl || "easy/0.jpg"}`)
       }
     })
     const res = wx.getLaunchOptionsSync()
@@ -129,6 +131,14 @@ export default {
     }
   },
 
+  show() {
+    this.start()
+    monitor.emit("scene:show", this.name);
+  },
+  hide() {
+    this.container.destroy({ children: true });
+    monitor.emit("scene:hide", "this.name");
+  },
 
   start() {
     this.init()

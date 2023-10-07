@@ -1,18 +1,18 @@
-import { createContainer, pixelRatio, ticker } from '../core'
-import databus from '../databus'
-import { OreType } from '../level_data'
-import collisionDetection from '../utils/collision-detection'
-import Ore from './ore'
+import { createContainer, pixelRatio, ticker } from "../core"
+import databus from "../databus"
+import { OreType } from "../level_data"
+import collisionDetection from "../utils/collision-detection"
+import Ore from "./ore"
 
 
 enum HookDirection {
-  Left = 'left',
-  Right = 'right'
+  Left = "left",
+  Right = "right"
 }
 
 enum RopeDirection {
-  Grow = 'grow',
-  Shrink = 'shrink'
+  Grow = "grow",
+  Shrink = "shrink"
 }
 
 
@@ -46,10 +46,10 @@ export default class Miner extends PIXI.Sprite {
     this.init()
   }
   init() {
-    const goldCare = pixiUtil.genSprite('gold_car')
+    const goldCare = pixiUtil.genSprite("gold_car")
     this.addChild(goldCare)
 
-    this.hook = pixiUtil.genSprite('gold_hook')
+    this.hook = pixiUtil.genSprite("gold_hook")
     this.hook.anchor.set(0.5)
     this.hook.rotation = Math.PI / 2
     this.rope = new PIXI.Graphics();

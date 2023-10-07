@@ -1,6 +1,6 @@
 
-import createCanvasSprite from '../canvas-sprite'
-import { monitor } from '../../core'
+import createCanvasSprite from "../canvas-sprite"
+import { monitor } from "../../core"
 
 export default class MenuItem extends PIXI.Container {
   menu: IMenu
@@ -15,7 +15,7 @@ export default class MenuItem extends PIXI.Container {
 
   private init() {
     const mask = createCanvasSprite({
-      fill: '#808080',
+      fill: "#808080",
       width: 120,
       height: 60
     })
@@ -23,7 +23,7 @@ export default class MenuItem extends PIXI.Container {
       fontFamily: wx.$store.font,
       fill: 0xffffff,
       fontSize: 40,
-      align: 'center',
+      align: "center",
       lineHeight: 60,
     })
     
@@ -32,8 +32,8 @@ export default class MenuItem extends PIXI.Container {
     menuText.x = mask.width / 2
     
     menuText.y = mask.height / 2
-    menuText.on('pointerdown', () => {
-      monitor.emit('menu:click', this.menu)
+    menuText.on("pointerdown", () => {
+      monitor.emit("menu:click", this.menu)
     })
     this.addChild(mask, menuText)
   }

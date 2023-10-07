@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack --watch --progress --color",
-    "build": "cross-env NODE_ENV=production webpack"
+    "build": "cross-env NODE_ENV=production webpack",
+    "lint": "eslint --fix --ext .js,.ts ."
   },
   "keywords": [],
   "author": "",

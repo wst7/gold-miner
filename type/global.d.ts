@@ -1,5 +1,5 @@
-declare module '*.frag'
-declare module '*.vert'
+declare module "*.frag"
+declare module "*.vert"
 
 declare const canvas: HTMLCanvasElement;
 declare const CDN: string;

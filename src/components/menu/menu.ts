@@ -1,6 +1,6 @@
 
-import { createContainer } from '../../core'
-import MenuItem from './menu-item'
+import { createContainer } from "../../core"
+import MenuItem from "./menu-item"
 
 
 
@@ -20,7 +20,7 @@ export default class Menu extends PIXI.Container {
   }
 
   private init () {
-    const menuBtn = pixiUtil.genSprite('menu');
+    const menuBtn = pixiUtil.genSprite("menu");
     menuBtn.interactive = true;
     menuBtn.buttonMode = true;
     menuBtn.x = 40;
@@ -29,7 +29,7 @@ export default class Menu extends PIXI.Container {
     menuBtn.height = 50;
     this.addChild(menuBtn);
     let isOpen = false
-    menuBtn.on('pointerdown', (e) => {
+    menuBtn.on("pointerdown", (e) => {
       if (isOpen) {
         this.menuGroup.visible = false
         return
@@ -45,7 +45,7 @@ export default class Menu extends PIXI.Container {
       const menuItem = new MenuItem(menu)
       this.menuGroup.addChild(menuItem)
       menuItem.y = (menuItem.height + 1) * idx
-      menuItem.on('pointerdown', () => {
+      menuItem.on("pointerdown", () => {
         this.menuGroup.visible = false
       })
     })

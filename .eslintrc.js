@@ -14,6 +14,7 @@ module.exports = {
     semi: "off",
     "no-async-promise-executor": "off",
     "no-undef": "off",
+    "quotes": [2, "double", { "avoidEscape": true }]
   },
   parser: "babel-eslint",
   parserOptions: {
